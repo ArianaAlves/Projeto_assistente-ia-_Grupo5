@@ -1,7 +1,6 @@
 document.getElementById('btnPerguntar').addEventListener('click', async () => {
   const apiKey = document.getElementById('apiKey').value.trim();
   const pergunta = document.getElementById('pergunta').value.trim();
-  const modelo = document.getElementById('modelo').value; // Linha adicionada para obter o modelo selecionado
   const respostaTexto = document.getElementById('respostaTexto');
   const respostaContainer = document.getElementById('respostaContainer');
 
@@ -21,7 +20,7 @@ document.getElementById('btnPerguntar').addEventListener('click', async () => {
         Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: modelo, // O valor aqui agora é dinâmico
+        model: "gpt-3.5-turbo",
         messages: [{ role: "user", content: pergunta }],
         temperature: 0.7,
       }),
