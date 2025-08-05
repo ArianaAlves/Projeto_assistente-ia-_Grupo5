@@ -14,7 +14,7 @@ body {
 
 .card {
     background-color: #003049;
-    color: white;
+    color: rgb(58, 61, 212);
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -91,4 +91,9 @@ button:disabled {
 
 .oculto {
     display: none;
+}
+
+p::before {
+  content: "Aviso: ";
+  color: red;
 }
