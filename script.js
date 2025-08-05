@@ -6,8 +6,6 @@ const elem = {
   btn: document.getElementById('btnPergunta'),
 }
 
-const btn = document.getElementById('btnPergunta');
-
 // Função para lidar com a pergunta e resposta da IA
 async function AIAssist(apiKey, question) {
   // Fetch para a API
