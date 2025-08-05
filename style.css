@@ -103,3 +103,9 @@ button:disabled {
   background-size: contain;
   background-repeat: no-repeat;
 }
+
+@media (max-width: 1320px) {
+  .image-container {
+    display: none;
+  }
+}
