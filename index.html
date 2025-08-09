@@ -1,47 +1,78 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Assistente de IA com Gemini</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="container">
-    <div class="card">
-      <h1>🤖 Assistente de IA (Google Gemini)</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assistente de IA com Gemini</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <h1>🤖 Assistente de IA (Google Gemini)</h1>
 
-      <div class="inputs-superiores">
-        <div class="campo">
-          <label for="apiKey">Google AI API Key:</label>
-          <input type="password" id="apiKey" placeholder="🔐 Insira sua API Key do Google AI Studio" />
+        <div class="inputs-superiores">
+          <div class="campo">
+            <label for="apiKey">Google AI API Key:</label>
+            <input
+              type="password"
+              id="apiKey"
+              placeholder="🔐 Insira sua API Key do Google AI Studio"
+            />
+          </div>
+
+          <div class="campo">
+            <label for="modelo">Modelo:</label>
+            <select id="modelo">
+              <option value="gemini-1.5-flash-latest">
+                Gemini 1.5 Flash (Rápido)
+              </option>
+              <option value="gemini-1.5-pro-latest">
+                Gemini 1.5 Pro (Avançado)
+              </option>
+            </select>
+          </div>
         </div>
 
-        <div class="campo">
-          <label for="modelo">Modelo:</label>
-          <select id="modelo">
-            <option value="gemini-1.5-flash-latest">Gemini 1.5 Flash (Rápido)</option>
-            <option value="gemini-1.5-pro-latest">Gemini 1.5 Pro (Avançado)</option>
-          </select>
+        <div class="pergunta-box">
+          <label for="pergunta">Faça sua pergunta:</label>
+          <input
+            type="text"
+            id="pergunta"
+            placeholder="💬 Digite sua pergunta aqui..."
+          />
+          <button id="btnPergunta">Perguntar</button>
+        </div>
+
+        <div id="respostaContainer" class="oculto">
+          <h2>Resposta da IA:</h2>
+          <p id="respostaTexto"></p>
         </div>
       </div>
 
-      <div class="pergunta-box">
-        <label for="pergunta">Faça sua pergunta:</label>
-        <input type="text" id="pergunta" placeholder="💬 Digite sua pergunta aqui..." />
-        <button id="btnPergunta">Perguntar</button>
-      </div>
-
-      <div id="respostaContainer" class="oculto">
-        <h2>Resposta da IA:</h2>
-        <p id="respostaTexto"></p>
-      </div>
+      <div class="image-container"></div>
     </div>
 
-    <div class="image-container"></div>
-  </div>
+    <script type="module" src="script.js"></script>
 
-  <script type="module" src="script.js"></script>
+    <!-- Formulário -->
+    <form id="ask-form">
+      <label for="apiKey">API Key</label>
+      <input id="apiKey" type="password" placeholder="Cole sua API Key aqui" />
 
+      <label for="question">Pergunta</label>
+      <textarea
+        id="question"
+        rows="4"
+        placeholder="Digite sua pergunta..."
+      ></textarea>
+
+      <div id="form-error" role="alert" style="display: none"></div>
+
+      <button id="ask-btn" type="submit">Perguntar</button>
+    </form>
+
+    <!-- área de resposta (inicialmente escondida) -->
+    <section id="response-area" hidden></section>
   </body>
 </html>

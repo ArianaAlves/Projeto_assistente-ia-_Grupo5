@@ -67,4 +67,107 @@ elem.btn.addEventListener('click', async () => {
     // Reabilita o botão após a conclusão
     elem.btn.disabled = false;
   }
+
+/* ===== helpers ===== */
+function showError(msg) {
+  const el = document.getElementById('form-error');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+function clearError() {
+  const el = document.getElementById('form-error');
+  el.textContent = '';
+  el.style.display = 'none';
+}
+
+/* ===== função que realiza a requisição ===== */
+async function fetchAnswer(apiKey, question) {
+  const res = await fetch('/ask', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ apiKey, question })
+  });
+  if (!res.ok) throw new Error(`Servidor retornou ${res.status}`);
+  const data = await res.json();
+  return data.answer;
+  */
+}
+/* ===== handler do formulário ===== */
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('ask-form');
+  const askBtn = document.getElementById('ask-btn');
+  const responseArea = document.getElementById('response-area');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const apiKey = document.getElementById('apiKey').value.trim();
+    const question = document.getElementById('question').value.trim();
+
+    // validação básica
+    if (!apiKey) {
+      showError('A API Key é obrigatória. Cole sua chave do Gemini.');
+      document.getElementById('apiKey').focus();
+      return;
+    }
+    if (!question) {
+      showError('Digite uma pergunta antes de enviar.');
+      document.getElementById('question').focus();
+      return;
+    }
+
+    clearError();
+
+    // desabilita botão e altera texto enquanto carrega
+    askBtn.disabled = true;
+    const originalText = askBtn.textContent;
+    askBtn.textContent = 'Enviando...';
+
+    // esconde resposta anterior
+    responseArea.hidden = true;
+    responseArea.textContent = '';
+
+    try {
+      const answer = await fetchAnswer(apiKey, question);
+
+      // exibe resposta (formatação simples)
+      responseArea.innerHTML = `
+        <h3>Sua pergunta</h3>
+        <p class="user-question">${escapeHtml(question)}</p>
+        <h3>Resposta da IA</h3>
+        <p class="ai-answer">${escapeHtml(answer)}</p>
+      `;
+      responseArea.hidden = false;
+      // rolar automaticamente até a resposta
+      responseArea.scrollIntoView({ behavior: 'smooth' });
+
+    } catch (err) {
+      console.error(err);
+      showError('Erro ao obter resposta: ' + err.message);
+    } finally {
+      askBtn.disabled = false;
+      askBtn.textContent = originalText;
+    }
+  });
+
+  // util: permitir Ctrl+Enter para enviar (opcional)
+  const questionEl = document.getElementById('question');
+  questionEl.addEventListener('keydown', (ev) => {
+    if ((ev.ctrlKey || ev.metaKey) && ev.key === 'Enter') {
+      form.requestSubmit();
+    }
+  });
+});
+
+/* função para escapar HTML (segurança) */
+function escapeHtml(str) {
+  return String(str)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
 });

@@ -115,3 +115,38 @@ input::placeholder {
   color: #999999; /* Um cinza um pouco mais claro */
 }
 
+/* mensagem de erro */
+#form-error {
+  color: #a80000;
+  background: rgba(255, 200, 200, 0.6);
+  padding: 8px 10px;
+  border-radius: 8px;
+  margin: 8px 0 12px 0;
+  display: none; /* controlado por JS */
+}
+
+/* botão desabilitado */
+#ask-btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* área de resposta */
+#response-area {
+  background: rgba(255,255,255,0.9);
+  padding: 14px;
+  border-radius: 10px;
+  margin-top: 16px;
+}
+
+/* destaque simples */
+.user-question {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.ai-answer {
+  white-space: pre-wrap; /* preserva quebras */
+  
+}
+
+
