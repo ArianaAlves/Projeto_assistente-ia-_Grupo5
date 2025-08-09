@@ -50,6 +50,7 @@ npm install
 - Sofia Ribeiro
 - Gabriela Caneva
 - Gabriel Moraes
+- Yasmin
 
 
 
