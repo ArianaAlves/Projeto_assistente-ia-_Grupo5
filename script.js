@@ -1,5 +1,5 @@
 // Importa o cliente da biblioteca do Google Generative AI
-import { GoogleGenerativeAI } from "@google/generative-ai";
+// import { GoogleGenerativeAI } from "@google/generative-ai";
 
 // Define os elementos da interface do usuário
 const elem = {
@@ -19,24 +19,46 @@ const elem = {
  */
 async function AIAssist(apiKey, question) {
   // Inicializa o cliente do Google Generative AI com a chave de API fornecida
-  const genAI = new GoogleGenerativeAI(apiKey);
+  // const genAI = new GoogleGenerativeAI(apiKey);
 
   try {
     // Seleciona o modelo de IA com base na escolha do usuário
-    const model = genAI.getGenerativeModel({ model: elem.modelo.value });
+    const model = elem.modelo.value;
+
+    // Seleciona o modelo de IA Gemini Pro Vision
+    const url = model + apiKey;
+    // Variável do prompt
+    const body = { contents: [{ parts: [{ text: question }] }] };
 
     // Envia a pergunta (prompt) para o modelo
-    const result = await model.generateContent(question);
-    const response = await result.response;
-    
-    // Retorna o texto da resposta
-    return response.text();
-  } catch (error) {
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+      const data = await response.json();
+
+      // Retorna o texto da resposta
+      if (data?.candidates?.[0]?.content?.parts?.[0]?.text) {
+        return data.candidates[0].content.parts[0].text;
+      }
+      // Se a resposta não contiver o texto esperado, lança um erro
+      else if (data.error) {
+        throw new Error(data.error.message);
+      } else {
+        throw new Error("Resposta inesperada da API.");
+      }
+    }
     // Trata erros comuns, como chave de API inválida
-    if (error.message?.includes('API key not valid')) {
+    catch (error) {
+      if (error.message?.includes('API key not valid')) {
       throw new Error("❌ Chave de API inválida ou incorreta. Verifique se você a copiou corretamente.");
     }
-    // Lança outros erros
+      throw error;
+    }
+  } 
+  catch (error) {
     throw error;
   }
 }

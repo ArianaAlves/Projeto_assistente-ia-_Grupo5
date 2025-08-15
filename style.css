@@ -115,6 +115,11 @@ button:disabled {
   margin-left: 20px;
 }
 
+.btn-limpar {
+    background-color: #dc3545; /* Cor vermelha para o botão de limpar */
+    margin-top: 10px;
+}
+
 @media (max-width: 992px) {
     .container {
         flex-direction: column;
