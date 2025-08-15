@@ -6,7 +6,8 @@ const elem = {
   key: document.getElementById('apiKey'),
   input: document.getElementById('pergunta'),
   output: document.getElementById('respostaTexto'),
-  btn: document.getElementById('btnPergunta'),
+  btnQ: document.getElementById('btnPergunta'),
+  btnC: document.getElementById('btnLimpar'),
   modelo: document.getElementById('modelo'),
   respostaContainer: document.getElementById('respostaContainer'),
 };
@@ -64,7 +65,7 @@ async function AIAssist(apiKey, question) {
 }
 
 // Adiciona o evento de clique ao botão de pergunta
-elem.btn.addEventListener('click', async () => {
+elem.btnQ.addEventListener('click', async () => {
   const apiKey = elem.key?.value?.trim() || '';
   const question = elem.input?.value?.trim() || '';
 
@@ -74,7 +75,7 @@ elem.btn.addEventListener('click', async () => {
   }
 
   // Desabilita o botão e mostra um feedback visual de carregamento
-  elem.btn.disabled = true;
+  elem.btnQ.disabled = true;
   elem.output.textContent = "⏳ Pensando...";
   elem.respostaContainer?.classList.remove('oculto');
 
@@ -87,6 +88,16 @@ elem.btn.addEventListener('click', async () => {
     elem.output.textContent = `Erro: ${error.message}`;
   } finally {
     // Reabilita o botão após a conclusão
-    elem.btn.disabled = false;
+    elem.btnQ.disabled = false;
+  }
+});
+
+// Adiciona o evento de clique ao botão de limpar
+elem.btnC.addEventListener('click', () => {
+  // Confirmar ação antes de limpar 
+  if (confirm("Você tem certeza que deseja limpar?")) {
+    elem.input.value = '';
+    elem.output.textContent = '';
+    elem.respostaContainer?.classList.add('oculto');
   }
 });
