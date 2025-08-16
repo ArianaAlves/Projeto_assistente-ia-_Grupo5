@@ -8,6 +8,8 @@ const elem = {
   output: document.getElementById('respostaTexto'),
   btnQ: document.getElementById('btnPergunta'),
   btnC: document.getElementById('btnLimpar'),
+  btnC: document.getElementById('btnCopiar'),
+  perguntaFeita: document.getElementById('perguntaFeita'),
   modelo: document.getElementById('modelo'),
   respostaContainer: document.getElementById('respostaContainer'),
 };
