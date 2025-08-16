@@ -120,6 +120,9 @@ button:disabled {
     background-color: #dc3545; /* Cor vermelha para o botão de limpar */
     margin-top: 10px;
 }
+.btn-limpar:hover {
+    background-color: #ec6565;
+}
 
 .btn-copiar{
     position: absolute;
