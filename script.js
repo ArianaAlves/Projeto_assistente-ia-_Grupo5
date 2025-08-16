@@ -77,6 +77,12 @@ elem.btnQ.addEventListener('click', async () => {
   const apiKey = elem.key?.value?.trim() || '';
   const question = elem.input?.value?.trim() || '';
 
+  // Animação de fade-in para a resposta
+  elem.respostaContainer.classList.remove('fade-out');
+  elem.respostaContainer.classList.remove('fade-in'); // Garante reinício da animação
+  void elem.respostaContainer.offsetWidth; // Força reflow para reiniciar animação
+  elem.respostaContainer.classList.add('fade-in');
+
   // Salva a API Key no localStorage
   localStorage.setItem('apiKey', apiKey);
 
@@ -110,12 +116,17 @@ elem.btnQ.addEventListener('click', async () => {
 
 // Adiciona o evento de clique ao botão de limpar
 elem.btnLimpar.addEventListener('click', () => {
-  // Confirmar ação antes de limpar 
+  // Confirmar ação antes de limpar, adicionando uma animação de fade-out
   if (confirm("Você tem certeza que deseja limpar?")) {
-    elem.input.value = '';
-    elem.perguntaFeita.textContent = '';
-    elem.output.textContent = '';
-    elem.respostaContainer?.classList.add('oculto');
+    elem.respostaContainer.classList.remove('fade-in');
+    elem.respostaContainer.classList.add('fade-out');
+    setTimeout(() => {
+      elem.input.value = '';
+      elem.perguntaFeita.textContent = '';
+      elem.output.textContent = '';
+      elem.respostaContainer?.classList.add('oculto');
+      elem.respostaContainer.classList.remove('fade-out');
+    }, 600)
   }
 });
 
