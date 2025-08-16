@@ -74,6 +74,11 @@ input:focus, select:focus {
     flex-direction: column;
     gap: 1rem;
 }
+/* NOVO: Container para os botões ficarem lado a lado */
+.botoes-container {
+    display: flex;
+    gap: 10px; /* Espaçamento entre os botões */
+}
 
 button {
     padding: 0.8rem;
@@ -83,6 +88,7 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+     flex-grow: 1; /* Faz os botões ocuparem o espaço disponível igualmente */
 }
 
 button:disabled {
@@ -107,17 +113,19 @@ button:disabled {
   display: flex;
   order: -1;
   justify-content: flex-start;
-  width: 300px;
-  height: 300px;
+  width: 500px;
+  height: 500px;
   background-image: url(robo1.png);
   background-size: contain;
   background-repeat: no-repeat;
-  margin-left: 20px;
+  margin-left: 100px;
 }
 
 .btn-limpar {
     background-color: #dc3545; /* Cor vermelha para o botão de limpar */
-    margin-top: 10px;
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center;
 }
 .btn-limpar:hover {
     background-color: #ec6565;

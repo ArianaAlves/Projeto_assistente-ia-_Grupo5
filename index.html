@@ -45,14 +45,17 @@
 
       <div class="pergunta-box">
         <label for="pergunta">Faça sua pergunta:</label>
-        <textarea id="pergunta" placeholder="💬 Digite sua pergunta aqui..." rows="3"></textarea>
+        <input type="text" id="pergunta" placeholder="💬 Digite sua pergunta aqui...">
         <span id="contador">0 caracteres</span>
-        <button id="btnPergunta">Perguntar</button>
+
+        <div class="botoes-container">
+
+          <button id="btnPesquisar">Gerar Resposta</button>
+          <button id="btnLimpar" class="btn-limpar"><img src="trash_icon.png" width="30"></button>
+          
+        </div>
       </div>
       
-      <button id="btnLimpar" class="btn-limpar"><img src="trash_icon.png" width="30"></button>
-
-
         <div id="respostaContainer" class="oculto">
           <p id="perguntaFeita"></p>
           <h2>Resposta da IA:</h2>

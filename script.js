@@ -6,7 +6,8 @@ const elem = {
   key: document.getElementById('apiKey'),
   input: document.getElementById('pergunta'),
   output: document.getElementById('respostaTexto'),
-  btnQ: document.getElementById('btnPergunta'),
+  // CORREÇÃO AQUI: O ID do botão no HTML é 'btnPesquisar', não 'btnPergunta'
+  btnPesquisar: document.getElementById('btnPesquisar'), 
   btnLimpar: document.getElementById('btnLimpar'),
   btnCopiar: document.getElementById('btnCopiar'),
   perguntaFeita: document.getElementById('perguntaFeita'),
@@ -27,19 +28,11 @@ elem.input.addEventListener('input', () => {
  * @returns {Promise<string>} A resposta do modelo.
  */
 async function AIAssist(apiKey, question) {
-  // Inicializa o cliente do Google Generative AI com a chave de API fornecida
-  // const genAI = new GoogleGenerativeAI(apiKey);
-
   try {
-    // Seleciona o modelo de IA com base na escolha do usuário
     const model = elem.modelo.value;
-
-    // Seleciona o modelo de IA Gemini Pro Vision
     const url = model + apiKey;
-    // Variável do prompt
     const body = { contents: [{ parts: [{ text: question }] }] };
 
-    // Envia a pergunta (prompt) para o modelo
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -48,18 +41,15 @@ async function AIAssist(apiKey, question) {
       });
       const data = await response.json();
 
-      // Retorna o texto da resposta
       if (data?.candidates?.[0]?.content?.parts?.[0]?.text) {
         return data.candidates[0].content.parts[0].text;
       }
-      // Se a resposta não contiver o texto esperado, lança um erro
       else if (data.error) {
         throw new Error(data.error.message);
       } else {
         throw new Error("Resposta inesperada da API.");
       }
     }
-    // Trata erros comuns, como chave de API inválida
     catch (error) {
       if (error.message?.includes('API key not valid')) {
       throw new Error("❌ Chave de API inválida ou incorreta. Verifique se você a copiou corretamente.");
@@ -72,51 +62,43 @@ async function AIAssist(apiKey, question) {
   }
 }
 
-// Adiciona o evento de clique ao botão de pergunta
-elem.btnQ.addEventListener('click', async () => {
+// CORREÇÃO AQUI: Adiciona o evento de clique ao botão correto
+elem.btnPesquisar.addEventListener('click', async () => {
   const apiKey = elem.key?.value?.trim() || '';
   const question = elem.input?.value?.trim() || '';
 
-  // Animação de fade-in para a resposta
   elem.respostaContainer.classList.remove('fade-out');
-  elem.respostaContainer.classList.remove('fade-in'); // Garante reinício da animação
-  void elem.respostaContainer.offsetWidth; // Força reflow para reiniciar animação
+  elem.respostaContainer.classList.remove('fade-in'); 
+  void elem.respostaContainer.offsetWidth; 
   elem.respostaContainer.classList.add('fade-in');
 
-  // Salva a API Key no localStorage
   localStorage.setItem('apiKey', apiKey);
 
-  // Verifica se a API Key e a pergunta foram preenchidas
   if (!apiKey || !question) {
     alert('⚠️ Por favor, preencha sua API Key e a pergunta.');
     return;
   }
 
- // Exibe a pergunta do usuário na tela
   elem.perguntaFeita.textContent = `Você perguntou: ${question}`;
 
-
-  // Desabilita o botão e mostra um feedback visual de carregamento
-  elem.btnQ.disabled = true;
+  // CORREÇÃO AQUI: Desabilita o botão correto
+  elem.btnPesquisar.disabled = true;
   elem.output.textContent = "⏳ Pensando...";
   elem.respostaContainer?.classList.remove('oculto');
 
   try {
-    // Chama a função para obter a resposta da IA
     const answer = await AIAssist(apiKey, question);
     elem.output.textContent = answer;
   } catch (error) {
-    // Exibe a mensagem de erro na tela
     elem.output.textContent = `Erro: ${error.message}`;
   } finally {
-    // Reabilita o botão após a conclusão
-    elem.btnQ.disabled = false;
+    // CORREÇÃO AQUI: Reabilita o botão correto
+    elem.btnPesquisar.disabled = false;
   }
 });
 
 // Adiciona o evento de clique ao botão de limpar
 elem.btnLimpar.addEventListener('click', () => {
-  // Confirmar ação antes de limpar, adicionando uma animação de fade-out
   if (confirm("Você tem certeza que deseja limpar?")) {
     elem.respostaContainer.classList.remove('fade-in');
     elem.respostaContainer.classList.add('fade-out');
@@ -126,11 +108,12 @@ elem.btnLimpar.addEventListener('click', () => {
       elem.output.textContent = '';
       elem.respostaContainer?.classList.add('oculto');
       elem.respostaContainer.classList.remove('fade-out');
+      elem.contador.textContent = '0 caracteres'; // Adicionado para resetar o contador
     }, 600)
   }
 });
 
-  // Adiciona o evento de clique ao botão de copiar
+// Adiciona o evento de clique ao botão de copiar
 elem.btnCopiar.addEventListener('click', () => {
   const textToCopy = elem.output.textContent;
   navigator.clipboard.writeText(textToCopy).then(() => {
@@ -139,4 +122,12 @@ elem.btnCopiar.addEventListener('click', () => {
     console.error('Erro ao copiar o texto: ', err);
     alert('❌ Ocorreu um erro ao tentar copiar a resposta.');
   });
+});
+
+// Carrega a API Key salva ao carregar a página
+window.addEventListener('load', () => {
+    const savedApiKey = localStorage.getItem('apiKey');
+    if (savedApiKey) {
+        elem.key.value = savedApiKey;
+    }
 });
