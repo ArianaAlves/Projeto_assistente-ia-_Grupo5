@@ -7,7 +7,9 @@ const elem = {
   input: document.getElementById('pergunta'),
   output: document.getElementById('respostaTexto'),
   btnQ: document.getElementById('btnPergunta'),
-  btnC: document.getElementById('btnLimpar'),
+  btnLimpar: document.getElementById('btnLimpar'),
+  btnCopiar: document.getElementById('btnCopiar'),
+  perguntaFeita: document.getElementById('perguntaFeita'),
   modelo: document.getElementById('modelo'),
   respostaContainer: document.getElementById('respostaContainer'),
 };
@@ -74,6 +76,10 @@ elem.btnQ.addEventListener('click', async () => {
     return;
   }
 
+ // Exibe a pergunta do usuário na tela
+  elem.perguntaFeita.textContent = `Você perguntou: ${question}`;
+
+
   // Desabilita o botão e mostra um feedback visual de carregamento
   elem.btnQ.disabled = true;
   elem.output.textContent = "⏳ Pensando...";
@@ -93,11 +99,23 @@ elem.btnQ.addEventListener('click', async () => {
 });
 
 // Adiciona o evento de clique ao botão de limpar
-elem.btnC.addEventListener('click', () => {
+elem.btnLimpar.addEventListener('click', () => {
   // Confirmar ação antes de limpar 
   if (confirm("Você tem certeza que deseja limpar?")) {
     elem.input.value = '';
+    elem.perguntaFeita.textContent = '';
     elem.output.textContent = '';
     elem.respostaContainer?.classList.add('oculto');
   }
+});
+
+  // Adiciona o evento de clique ao botão de copiar
+elem.btnCopiar.addEventListener('click', () => {
+  const textToCopy = elem.output.textContent;
+  navigator.clipboard.writeText(textToCopy).then(() => {
+    alert('✅ Resposta copiada para a área de transferência!');
+  }).catch(err => {
+    console.error('Erro ao copiar o texto: ', err);
+    alert('❌ Ocorreu um erro ao tentar copiar a resposta.');
+  });
 });

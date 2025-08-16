@@ -1,31 +1,47 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Assistente de IA com Gemini</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="container">
-    <div class="card">
-      <h1>🤖 Assistente de IA (Google Gemini)</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assistente de IA com Gemini</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <h1>🤖 Assistente de IA (Google Gemini)</h1>
 
-      <div class="inputs-superiores">
-        <div class="campo">
-          <label for="apiKey">Google AI API Key:</label>
-          <input type="password" id="apiKey" placeholder="🔐 Insira sua API Key do Google AI Studio" />
-        </div>
+        <div class="inputs-superiores">
+          <div class="campo">
+            <label for="apiKey">Google AI API Key:</label>
+            <input
+              type="password"
+              id="apiKey"
+              placeholder="🔐 Insira sua API Key do Google AI Studio"
+            />
+          </div>
 
-        <div class="campo">
-          <label for="modelo">Modelo:</label>
-          <select id="modelo">
-            <option value="https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=">Gemini 2.0 Flash (Padrão)</option>
-            <option value="https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-001:generateContent?key=">Gemini 1.5 Flash</option>
-            <option value="https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=">Gemini 1.5 Pro</option>
-          </select>
+          <div class="campo">
+            <label for="modelo">Modelo:</label>
+            <select id="modelo">
+              <option
+                value="https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key="
+              >
+                Gemini 2.0 Flash (Padrão)
+              </option>
+              <option
+                value="https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-001:generateContent?key="
+              >
+                Gemini 1.5 Flash
+              </option>
+              <option
+                value="https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key="
+              >
+                Gemini 1.5 Pro
+              </option>
+            </select>
+          </div>
         </div>
-      </div>
 
       <div class="pergunta-box">
         <label for="pergunta">Faça sua pergunta:</label>
@@ -35,16 +51,18 @@
       
       <button id="btnLimpar" class="btn-limpar"><img src="trash_icon.png" width="30"></button>
 
-      <div id="respostaContainer" class="oculto">
-        <h2>Resposta da IA:</h2>
-        <p id="respostaTexto"></p>
+
+        <div id="respostaContainer" class="oculto">
+          <p id="perguntaFeita"></p>
+          <h2>Resposta da IA:</h2>
+          <p id="respostaTexto"></p>
+          <button id="btnCopiar" class="btn-copiar"></button>
+        </div>
       </div>
+
+      <div class="image-container"></div>
     </div>
 
-    <div class="image-container"></div>
-  </div>
-
-  <script type="module" src="script.js"></script>
-
+    <script type="module" src="script.js"></script>
   </body>
 </html>
