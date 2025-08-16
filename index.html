@@ -20,8 +20,7 @@
         <div class="campo">
           <label for="modelo">Modelo:</label>
           <select id="modelo">
-            <option value="gemini-1.5-flash-latest">Gemini 1.5 Flash (Rápido)</option>
-            <option value="gemini-1.5-pro-latest">Gemini 1.5 Pro (Avançado)</option>
+            <option value="https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=">Gemini 2.0 Flash (Padrão)</option>
           </select>
         </div>
       </div>
@@ -31,6 +30,8 @@
         <input type="text" id="pergunta" placeholder="💬 Digite sua pergunta aqui..." />
         <button id="btnPergunta">Perguntar</button>
       </div>
+      
+      <button id="btnLimpar" class="btn-limpar">Limpar</button>
 
       <div id="respostaContainer" class="oculto">
         <h2>Resposta da IA:</h2>
