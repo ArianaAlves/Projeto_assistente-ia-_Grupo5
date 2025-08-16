@@ -12,7 +12,13 @@ const elem = {
   perguntaFeita: document.getElementById('perguntaFeita'),
   modelo: document.getElementById('modelo'),
   respostaContainer: document.getElementById('respostaContainer'),
+  contador: document.getElementById('contador')
 };
+
+// Adiciona um evento de input para atualizar o contador de caracteres
+elem.input.addEventListener('input', () => {
+  elem.contador.textContent = `${elem.input.value.length} caracteres`;
+});
 
 /**
  * Função para lidar com a pergunta e obter a resposta da IA do Gemini.
@@ -71,6 +77,10 @@ elem.btnQ.addEventListener('click', async () => {
   const apiKey = elem.key?.value?.trim() || '';
   const question = elem.input?.value?.trim() || '';
 
+  // Salva a API Key no localStorage
+  localStorage.setItem('apiKey', apiKey);
+
+  // Verifica se a API Key e a pergunta foram preenchidas
   if (!apiKey || !question) {
     alert('⚠️ Por favor, preencha sua API Key e a pergunta.');
     return;
