@@ -125,11 +125,19 @@ button:disabled {
     position: absolute;
     bottom: 10px;
     right: 10px;
-    background-color: #0a0707;
+    background-color: transparent;
+    background-image: url('copy_icon.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 25px 25px;
+    border: none;
     width: 24px;
     height: 24px;
     border-radius: 4px;
     cursor: pointer;
+}
+.btn-copiar:hover {
+    background-color: #b6cbf1;
 }
 
 @media (max-width: 992px) {
