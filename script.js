@@ -10,6 +10,7 @@ const elem = {
   btnC: document.getElementById('btnLimpar'),
   modelo: document.getElementById('modelo'),
   respostaContainer: document.getElementById('respostaContainer'),
+  pergunta: document.getElementById('perguntaFeita'),
 };
 
 /**
@@ -74,6 +75,8 @@ elem.btnQ.addEventListener('click', async () => {
     return;
   }
 
+   // Define o texto da pergunta antes de chamar a IA
+  elem.pergunta.textContent = `Você perguntou: ${question}`;
   // Desabilita o botão e mostra um feedback visual de carregamento
   elem.btnQ.disabled = true;
   elem.output.textContent = "⏳ Pensando...";
