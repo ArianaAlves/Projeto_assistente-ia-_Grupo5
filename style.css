@@ -92,6 +92,7 @@ button:disabled {
 }
 
 #respostaContainer {
+    position: relative;
     margin-top: 2rem;
     background-color: white;
     color: black;
@@ -118,6 +119,17 @@ button:disabled {
 .btn-limpar {
     background-color: #dc3545; /* Cor vermelha para o botão de limpar */
     margin-top: 10px;
+}
+
+.btn-copiar{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: #0a0707;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 @media (max-width: 992px) {
